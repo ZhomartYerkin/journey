@@ -115,10 +115,18 @@ function addPoints(){
 /* =========================
    Fit bounds
 ========================= */
-function fitAll(){
-  const group = L.featureGroup([livedLayer, visitedLayer]);
+function fitAll() {
+  const layers = [...livedLayer.getLayers(), ...visitedLayer.getLayers()];
+
+  if (layers.length === 0) {
+    map.setView([20, 0], 2);
+    return;
+  }
+
+  const group = L.featureGroup(layers);
   const b = group.getBounds();
-  if (b.isValid()) map.fitBounds(b.pad(0.2)); else map.setView([20,0],2);
+  if (b.isValid()) map.fitBounds(b.pad(0.2));
+  else map.setView([20, 0], 2);
 }
 
 /* =========================
