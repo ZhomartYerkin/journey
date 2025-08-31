@@ -11,3 +11,11 @@ body {
   border-radius: 12px;
 }
 
+.filters {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  background: var(--panel); border: 1px solid var(--outline);
+  padding: 10px 12px; border-radius: 10px; margin: 8px 0 12px;
+}
+.filters label { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); }
+.filters .sep { color: var(--muted); margin: 0 6px; }
+
