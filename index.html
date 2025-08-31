@@ -6,50 +6,54 @@
   <title>My Journey — Zhomart Yerkin</title>
   <meta name="description" content="Personal travel timeline, skills, and selected projects." />
   <link rel="icon" href="data:,"><!-- prevent favicon 404 -->
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bg: #0b0d10; --fg: #e6eef9; --muted:#a7b3c5; --card:#12161b; --accent:#74c0fc; --border:#1f2731; --max: 980px;
-    }
+    :root { --bg:#0b0d10; --fg:#e6eef9; --muted:#a7b3c5; --card:#12161b; --accent:#74c0fc; --border:#1f2731; --max:980px; }
     @media (prefers-color-scheme: light){
       :root { --bg:#f7fbff; --fg:#0f1720; --muted:#4b5563; --card:#ffffff; --accent:#2563eb; --border:#e5e7eb; }
     }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--fg); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 16px 64px; }
-    h2 { margin-top: 40px; font-size: 1.5rem; font-weight:600; }
-    ul { list-style: none; padding:0; }
-    li { background:var(--card); margin:8px 0; padding:12px 16px; border-radius:12px; border:1px solid var(--border); }
-    .city { font-weight:600; }
-    .years { color:var(--muted); font-size:0.9rem; }
+    * { box-sizing:border-box }
+    body { margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--fg) }
+    a { color:var(--accent); text-decoration:none } a:hover { text-decoration:underline }
+    .wrap { max-width:var(--max); margin:0 auto; padding:28px 16px 64px }
+    h2 { margin-top:40px; font-size:1.5rem; font-weight:600 }
+    ul { list-style:none; padding:0 }
+    li { background:var(--card); margin:8px 0; padding:12px 16px; border-radius:12px; border:1px solid var(--border) }
+    .city { font-weight:600 } .years { color:var(--muted); font-size:.9rem }
 
     /* Hero & buttons */
-    .hero { display:flex; flex-direction:column; gap:18px; padding:24px; background:var(--card); border:1px solid var(--border); border-radius:16px; }
-    .hero h1 { font-weight: 800; margin:0; font-size: 2.2rem; }
-    .hero p { margin:0; color:var(--muted); max-width:70ch; }
-    .cta { display:flex; gap:10px; flex-wrap:wrap; }
-    .btn { display:inline-block; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--card); color:var(--fg); text-decoration:none; }
-    .btn.primary { background: var(--accent); color:#fff; border-color: transparent; }
-    .pill { display:inline-flex; align-items:center; gap:8px; font-size:0.9rem; color:var(--muted); }
-    .pill .dot { width:8px; height:8px; border-radius:50%; background:#10b981; box-shadow:0 0 0 4px rgba(16,185,129,.15); }
-    .section-note { color:var(--muted); font-size:0.95rem; }
+    .hero { display:flex; flex-direction:column; gap:18px; padding:24px; background:var(--card); border:1px solid var(--border); border-radius:16px }
+    .hero h1 { font-weight:800; margin:0; font-size:2.2rem }
+    .hero p { margin:0; color:var(--muted); max-width:70ch }
+    .cta { display:flex; gap:10px; flex-wrap:wrap }
+    .btn { display:inline-block; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--card); color:var(--fg) }
+    .btn.primary { background:var(--accent); color:#fff; border-color:transparent }
+    .pill { display:inline-flex; align-items:center; gap:8px; font-size:.9rem; color:var(--muted) }
+    .pill .dot { width:8px; height:8px; border-radius:50%; background:#10b981; box-shadow:0 0 0 4px rgba(16,185,129,.15) }
+    .section-note { color:var(--muted); font-size:.95rem }
 
     /* Language switch */
-    .lang-switch { display:flex; gap:6px; flex-wrap:wrap; }
-    .lang-switch button { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:6px 10px; cursor:pointer; color:var(--fg); font-size:0.9rem; }
-    .lang-switch button[aria-pressed="true"] { outline:2px solid var(--accent); }
+    .lang-switch { display:flex; gap:6px; flex-wrap:wrap }
+    .lang-switch button { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:6px 10px; cursor:pointer; color:var(--fg); font-size:.9rem }
+    .lang-switch button[aria-pressed="true"] { outline:2px solid var(--accent) }
 
-    /* Map controls moved under hero */
-    .cta-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px; }
-    .cta-row .muted { color: var(--muted); font-size: 0.95rem; }
-    .cta-row .btn { padding:6px 10px; }
+    /* Top bar locations */
+    .cta-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px }
+    .cta-row .muted { color:var(--muted); font-size:.95rem }
+    .cta-row .btn { padding:6px 10px }
 
     /* Map box */
-    #map { height: 70vh; min-height: 420px; border:1px solid var(--border); border-radius:14px; }
+    #map { height:70vh; min-height:420px; border:1px solid var(--border); border-radius:14px }
+
+    /* Collapsible locations panel */
+    #locations-panel { margin-top:8px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; display:none }
+    #locations-panel.open { display:block }
+    #locations-panel h3 { margin:6px 0 8px; font-size:1.1rem }
+    #locations-panel .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px }
   </style>
 </head>
 <body>
@@ -60,24 +64,70 @@
           <button id="btn-ru" data-lang="ru" aria-pressed="false">🇷🇺 Русский</button>
           <button id="btn-en" data-lang="en" aria-pressed="true">🇬🇧 English</button>
         </div>
-        <div class="pill"><span class="dot"></span> <span data-en="Currently in Almaty · open to Web/Digital Media work" data-ru="Сейчас в Алматы · открыт к Web/Digital Media проектам">Currently in Almaty · open to Web/Digital Media work</span></div>
+        <div class="pill"><span class="dot"></span>
+          <span data-en="Currently in Almaty · open to Web/Digital Media work"
+                data-ru="Сейчас в Алматы · открыт к Web/Digital Media проектам">Currently in Almaty · open to Web/Digital Media work</span>
+        </div>
         <h1 data-en="Journeys across work & life" data-ru="Путешествия через работу и жизнь">Journeys across work & life</h1>
-        <p data-en="Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content." data-ru="Личный сайт-лента: города, где я жил и работал, и места, которые посетил. Фокус на вебе, картах и цифровом контенте.">Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content.</p>
+        <p data-en="Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content."
+           data-ru="Личный сайт-лента: города, где я жил и работал, и места, которые посетил. Фокус на вебе, картах и цифровом контенте.">
+           Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content.
+        </p>
 
         <div class="cta">
           <a class="btn primary" href="#projects" data-en="Selected Projects" data-ru="Проекты">Selected Projects</a>
           <a class="btn" href="resume.pdf" target="_blank" rel="noopener" data-en="Resume (PDF)" data-ru="Резюме (PDF)">Resume (PDF)</a>
-          <a class="btn" href="mailto:yerkinfam@gmail.com" data-en="Contact" data-ru="Контакты">Contact</a>
+          <a class="btn" href="mailto:zyerkin@gmail.com" data-en="Contact" data-ru="Контакты">Contact</a>
           <a class="btn" href="https://github.com/ZhomartYerkin" target="_blank" rel="noopener">GitHub</a>
 
-          <!-- Locations toggles under top bar -->
+          <!-- Locations toggles moved under top bar -->
           <div class="cta-row">
             <span class="muted" data-en="Locations:" data-ru="Локации:">Locations:</span>
             <button id="toggle-lived" class="btn" aria-pressed="true"
                     data-en="Lived &amp; Worked: ON" data-ru="Жил/Работал: ВКЛ">Lived &amp; Worked: ON</button>
             <button id="toggle-visited" class="btn" aria-pressed="true"
                     data-en="Visited: ON" data-ru="Посещено: ВКЛ">Visited: ON</button>
+            <button id="btn-locations" class="btn" data-en="Show lists" data-ru="Показать списки">Show lists</button>
           </div>
+
+          <!-- Collapsible lists panel -->
+          <div id="locations-panel" aria-live="polite">
+            <div class="cols">
+              <div>
+                <h3 data-en="Places I Lived & Worked" data-ru="Где жил и работал">Places I Lived & Worked</h3>
+                <ul>
+                  <li><span class="city">Panama City, Panama</span> <span class="years">2005–2006</span></li>
+                  <li><span class="city">San Francisco, CA, USA</span> <span class="years">2006–2007</span></li>
+                  <li><span class="city">Bishkek, Kyrgyzstan</span> <span class="years">2007–2010</span></li>
+                  <li><span class="city">San Salvador, El Salvador</span> <span class="years">2010–2012</span></li>
+                  <li><span class="city">Silver Spring, MD, USA</span> <span class="years">2012–2016</span></li>
+                  <li><span class="city">Moscow, Russia</span> <span class="years">2016–2020</span></li>
+                  <li><span class="city">Reykjavik, Iceland</span> <span class="years">2020</span></li>
+                  <li><span class="city">Washington, DC, USA</span> <span class="years">2020–2023</span></li>
+                  <li><span class="city">Almaty, Kazakhstan</span> <span class="years">2023–present</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 data-en="Countries & Cities I Visited" data-ru="Страны и города, которые посетил">Countries & Cities I Visited</h3>
+                <ul>
+                  <li>Tokyo, Osaka (Japan)</li>
+                  <li>Kathmandu (Nepal)</li>
+                  <li>Frankfurt, Berlin, Duesseldorf, Greifswald, Nuremberg (Germany)</li>
+                  <li>Brussels, Antwerp (Belgium)</li>
+                  <li>Amsterdam (Netherlands)</li>
+                  <li>Nice (France)</li>
+                  <li>Istanbul, Antalya (Turkey)</li>
+                  <li>Sharm el-Sheikh, Hurghada (Egypt)</li>
+                  <li>Phuket (Thailand)</li>
+                  <li>Thunder Bay (Canada)</li>
+                  <li>McGregor (Minnesota, USA)</li>
+                  <li>Cape Canaveral (Florida, USA)</li>
+                  <li>Honolulu (Hawaii, USA)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- /locations panel -->
         </div>
       </div>
     </header>
@@ -85,73 +135,46 @@
     <section id="map-section">
       <h2 data-en="Interactive Map" data-ru="Интерактивная карта">Interactive Map</h2>
       <div id="map"></div>
-      <p class="years" style="margin-top:8px" data-en="Blue = Lived & Worked • Gray = Visited" data-ru="Синий = Жил/Работал • Серый = Посещено">Blue = Lived & Worked • Gray = Visited</p>
-    </section>
-
-    <section>
-      <h2 data-en="Places I Lived & Worked" data-ru="Где жил и работал">Places I Lived & Worked</h2>
-      <ul>
-        <li><span class="city">Panama City, Panama</span> <span class="years">2005–2006</span></li>
-        <li><span class="city">San Francisco, CA, USA</span> <span class="years">2006–2007</span></li>
-        <li><span class="city">Bishkek, Kyrgyzstan</span> <span class="years">2007–2010</span></li>
-        <li><span class="city">San Salvador, El Salvador</span> <span class="years">2010–2012</span></li>
-        <li><span class="city">Silver Spring, MD, USA</span> <span class="years">2012–2016</span></li>
-        <li><span class="city">Moscow, Russia</span> <span class="years">2016–2020</span></li>
-        <li><span class="city">Reykjavik, Iceland</span> <span class="years">2020</span></li>
-        <li><span class="city">Washington, DC, USA</span> <span class="years">2020–2023</span></li>
-        <li><span class="city">Almaty, Kazakhstan</span> <span class="years">2023–present</span></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2 data-en="Countries & Cities I Visited" data-ru="Страны и города, которые посетил">Countries & Cities I Visited</h2>
-      <ul>
-        <li>Tokyo, Osaka (Japan)</li>
-        <li>Kathmandu (Nepal)</li>
-        <li>Frankfurt, Berlin, Duesseldorf, Greifswald, Nuremberg (Germany)</li>
-        <li>Brussels, Antwerp (Belgium)</li>
-        <li>Amsterdam (Netherlands)</li>
-        <li>Nice (France)</li>
-        <li>Istanbul, Antalya (Turkey)</li>
-        <li>Sharm el-Sheikh, Hurghada (Egypt)</li>
-        <li>Phuket (Thailand)</li>
-        <li>Thunder Bay (Canada)</li>
-        <li>McGregor (Minnesota, USA)</li>
-        <li>Cape Canaveral (Florida, USA)</li>
-        <li>Honolulu (Hawaii, USA)</li>
-      </ul>
+      <p class="years" style="margin-top:8px"
+         data-en="Blue = Lived & Worked • Gray = Visited"
+         data-ru="Синий = Жил/Работал • Серый = Посещено">Blue = Lived & Worked • Gray = Visited</p>
     </section>
 
     <section id="about">
       <h2 data-en="About" data-ru="Обо мне">About</h2>
-      <p class="section-note" data-en="I build small, fast, legible web interfaces: GitHub Pages, clean HTML/CSS/JS, Leaflet maps, light design. I like turning raw lists into structured, visually pleasant pages." data-ru="Я строю небольшие, быстрые и понятные интерфейсы: GitHub Pages, чистый HTML/CSS/JS, Leaflet-карты, лёгкий дизайн. Люблю превращать сырые списки в структурированные, визуально приятные страницы.">I build small, fast, legible web interfaces: GitHub Pages, clean HTML/CSS/JS, Leaflet maps, light design. I like turning raw lists into structured, visually pleasant pages.</p>
+      <p class="section-note"
+         data-en="I build small, fast, legible web interfaces: GitHub Pages, clean HTML/CSS/JS, Leaflet maps, light design. I like turning raw lists into structured, visually pleasant pages."
+         data-ru="Я строю небольшие, быстрые и понятные интерфейсы: GitHub Pages, чистый HTML/CSS/JS, Leaflet-карты, лёгкий дизайн. Люблю превращать сырые списки в структурированные, визуально приятные страницы.">
+         I build small, fast, legible web interfaces: GitHub Pages, clean HTML/CSS/JS, Leaflet maps, light design. I like turning raw lists into structured, visually pleasant pages.
+      </p>
     </section>
 
     <section id="skills">
       <h2 data-en="Skills" data-ru="Навыки">Skills</h2>
       <ul>
-        <li data-en="Web: HTML5, CSS (responsive, dark/light), JavaScript (ESM), clean architecture." data-ru="Web: HTML5, CSS (адаптив, тёмная/светлая тема), JavaScript (ESM), чистая архитектура.">Web: HTML5, CSS (responsive, dark/light), JavaScript (ESM), clean architecture.</li>
-        <li data-en="Data viz: Leaflet (maps), simple charts, lightweight components." data-ru="Data viz: Leaflet (карты), простые диаграммы, лёгкие компоненты.">Data viz: Leaflet (maps), simple charts, lightweight components.</li>
-        <li data-en="Tooling: Git/GitHub, GitHub Pages, Markdown, basic CI." data-ru="Tooling: Git/GitHub, GitHub Pages, Markdown, базовая CI.">Tooling: Git/GitHub, GitHub Pages, Markdown, basic CI.</li>
-        <li data-en="Content: structuring, readable copy, bilingual (RU/EN)." data-ru="Content: структурирование, читабельные тексты, RU/EN.">Content: structuring, readable copy, bilingual (RU/EN).</li>
+        <li data-en="Web: HTML5, CSS (responsive, dark/light), JavaScript (ESM), clean architecture."
+            data-ru="Web: HTML5, CSS (адаптив, тёмная/светлая тема), JavaScript (ESM), чистая архитектура.">
+            Web: HTML5, CSS (responsive, dark/light), JavaScript (ESM), clean architecture.
+        </li>
+        <li data-en="Data viz: Leaflet (maps), simple charts, lightweight components."
+            data-ru="Data viz: Leaflet (карты), простые диаграммы, лёгкие компоненты.">
+            Data viz: Leaflet (maps), simple charts, lightweight components.
+        </li>
+        <li data-en="Tooling: Git/GitHub, GitHub Pages, Markdown, basic CI."
+            data-ru="Tooling: Git/GitHub, GitHub Pages, Markdown, базовая CI.">
+            Tooling: Git/GitHub, GitHub Pages, Markdown, basic CI.
+        </li>
+        <li data-en="Content: structuring, readable copy, bilingual (RU/EN)."
+            data-ru="Content: структурирование, читабельные тексты, RU/EN.">
+            Content: structuring, readable copy, bilingual (RU/EN).
+        </li>
       </ul>
     </section>
 
     <section id="projects">
       <h2 data-en="Selected Projects" data-ru="Выбранные проекты">Selected Projects</h2>
       <ul>
-        <li><span class="city">My Journey</span> — <span data-en="interactive map of places lived and visited; optional thumbnails; Lived/Visited filters; clean UI." data-ru="интерактивная карта мест, где жил и путешествовал; мини-превью опционально; фильтры Lived/Visited; чистый UI.">interactive map of places lived and visited; optional thumbnails; Lived/Visited filters; clean UI.</span></li>
-        <li><span class="city">Brain Games (CLI)</span> — <span data-en="study series of Node.js console games (even/calc/gcd/progression/prime) with Asciinema demos." data-ru="учебная серия консольных игр на Node.js (even/calc/gcd/progression/prime) с Asciinema-демо.">study series of Node.js console games (even/calc/gcd/progression/prime) with Asciinema demos.</span></li>
-        <li><span class="city">Small Web Utilities</span> — <span data-en="micro pages for notes, recipes, workouts, etc. (work in progress)." data-ru="микро-страницы для заметок, рецептов, тренировок и т.п. (в разработке).">micro pages for notes, recipes, workouts, etc. (work in progress).</span></li>
-      </ul>
-    </section>
-
-  </div>
-
-  <!-- Leaflet CSS & JS (Safari/GitHub Pages friendly) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-  <script src="main.js" defer></script>
-</body>
-</html>
+        <li><span class="city">My Journey</span> — <span
+          data-en="interactive map of places lived and visited; optional thumbnails; Lived/Visited filters; clean UI."
+          data-ru="интерактивная
 
