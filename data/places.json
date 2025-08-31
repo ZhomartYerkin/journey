@@ -1,0 +1,37 @@
+{
+  "lived": [
+    { "name": "Panama City, Panama", "coords": [8.983333, -79.516667], "years": "2005–2006" },
+    { "name": "San Francisco, CA, USA", "coords": [37.7749, -122.4194], "years": "2006–2007" },
+    { "name": "Bishkek, Kyrgyzstan", "coords": [42.8746, 74.5698], "years": "2007–2010" },
+    { "name": "San Salvador, El Salvador", "coords": [13.6929, -89.2182], "years": "2010–2012" },
+    { "name": "Silver Spring, MD, USA", "coords": [39.0098, -77.0074], "years": "2012–2016" },
+    { "name": "Moscow, Russia", "coords": [55.7558, 37.6173], "years": "2016–2020" },
+    { "name": "Reykjavik, Iceland", "coords": [64.1355, -21.8954], "years": "2020" },
+    { "name": "Washington, DC, USA", "coords": [38.9072, -77.0369], "years": "2020–2023" },
+    { "name": "Almaty, Kazakhstan", "coords": [43.2389, 76.8897], "years": "2023–present" }
+  ],
+  "visited": [
+    { "name": "Tokyo, Japan", "coords": [35.6762, 139.6503] },
+    { "name": "Osaka, Japan", "coords": [34.6937, 135.5023] },
+    { "name": "Kathmandu, Nepal", "coords": [27.7172, 85.3240] },
+    { "name": "Frankfurt, Germany", "coords": [50.1109, 8.6821] },
+    { "name": "Berlin, Germany", "coords": [52.5200, 13.4050] },
+    { "name": "Düsseldorf, Germany", "coords": [51.2277, 6.7735] },
+    { "name": "Greifswald, Germany", "coords": [54.0931, 13.3879] },
+    { "name": "Nuremberg, Germany", "coords": [49.4521, 11.0767] },
+    { "name": "Brussels, Belgium", "coords": [50.8503, 4.3517] },
+    { "name": "Antwerp, Belgium", "coords": [51.2194, 4.4025] },
+    { "name": "Amsterdam, Netherlands", "coords": [52.3676, 4.9041] },
+    { "name": "Nice, France", "coords": [43.7102, 7.2620] },
+    { "name": "Istanbul, Turkey", "coords": [41.0082, 28.9784] },
+    { "name": "Antalya, Turkey", "coords": [36.8969, 30.7133] },
+    { "name": "Sharm El Sheikh, Egypt", "coords": [27.9158, 34.3299] },
+    { "name": "Hurghada, Egypt", "coords": [27.2579, 33.8116] },
+    { "name": "Phuket, Thailand", "coords": [7.8804, 98.3923] },
+    { "name": "Thunder Bay, Canada", "coords": [48.3809, -89.2477] },
+    { "name": "McGregor, Minnesota, USA", "coords": [46.6116, -93.3113] },
+    { "name": "Cape Canaveral, FL, USA", "coords": [28.3922, -80.6077] },
+    { "name": "Honolulu, Hawaii, USA", "coords": [21.3099, -157.8581] }
+  ]
+}
+

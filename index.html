@@ -1,219 +1,230 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Journey — Zhomart Yerkin</title>
-  <meta name="description" content="Personal travel timeline, skills, and selected projects." />
-  <link rel="icon" href="data:,"><!-- глушим favicon 404 -->
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
+  <title>Journey — Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <style>
-    :root { --bg:#0b0d10; --fg:#e6eef9; --muted:#a7b3c5; --card:#12161b; --accent:#74c0fc; --border:#1f2731; --max:980px; }
-    @media (prefers-color-scheme: light){
-      :root { --bg:#f7fbff; --fg:#0f1720; --muted:#4b5563; --card:#ffffff; --accent:#2563eb; --border:#e5e7eb; }
+    :root{
+      --bg:#0b0d12;--fg:#e7ecf3;--muted:#9aa4b2;--acc:#4f8cff;--green:#1fc77e;--yellow:#ffd166;--card:#121622;--border:#1d2230;
     }
-    * { box-sizing:border-box }
-    body { margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--fg) }
-    a { color:var(--accent); text-decoration:none } a:hover { text-decoration:underline }
-    .wrap { max-width:var(--max); margin:0 auto; padding:28px 16px 64px }
-    h2 { margin-top:32px; font-size:1.4rem; font-weight:600 }
-    .hero { display:flex; flex-direction:column; gap:12px; padding:20px; background:var(--card); border:1px solid var(--border); border-radius:14px }
-    .hero h1 { margin:0; font-size:1.8rem; font-weight:800 }
-    .hero p { margin:0; color:var(--muted) }
-    .cta { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px }
-    .btn { padding:8px 12px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--fg); cursor:pointer }
-    .btn.primary { background:var(--accent); color:#fff; border-color:transparent }
-    .lang-switch { display:flex; gap:6px }
-    .lang-switch button[aria-pressed="true"] { outline:2px solid var(--accent) }
-    #map { height:70vh; min-height:420px; border:1px solid var(--border); border-radius:12px; margin-top:12px }
-    .legend { background:var(--card); border:1px solid var(--border); padding:8px 10px; border-radius:10px; font-size:12px }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .app{display:grid;grid-template-rows:auto 1fr;height:100%}
+    header{display:flex;gap:.75rem;align-items:center;padding:.75rem 1rem;background:linear-gradient(180deg,#0e1220,#0b0d12);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000}
+    .title{font-weight:700;letter-spacing:.2px;margin-right:auto}
+    .toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+    button,select{appearance:none;border:1px solid var(--border);background:var(--card);color:var(--fg);padding:.5rem .75rem;border-radius:.75rem;cursor:pointer;transition:transform .04s ease,border-color .2s ease,background .2s ease}
+    button:hover,select:hover{border-color:#2a3347}
+    button:active{transform:translateY(1px)}
+    button.active{outline:2px solid var(--acc);background:#10172a}
+    .chip{font-weight:600}
+    .chip.lived{color:var(--green)}
+    .chip.visited{color:var(--yellow)}
+    #map{height:calc(100dvh - 64px);width:100%}
+    .leaflet-popup-content-wrapper{background:var(--card);color:var(--fg);border:1px solid var(--border)}
+    .leaflet-popup-tip{background:var(--card)}
+    .attribution{position:fixed;right:10px;bottom:10px;font-size:12px;color:var(--muted)}
+    a{color:var(--acc);text-decoration:none}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <div class="lang-switch">
-        <button id="btn-ru" aria-pressed="false">🇷🇺 Русский</button>
-        <button id="btn-en" aria-pressed="true">🇬🇧 English</button>
-      </div>
-      <h1 data-en="Journeys across work & life" data-ru="Путешествия через работу и жизнь">Journeys across work & life</h1>
-      <p data-en="Personal timeline: cities where I lived and worked, and places visited."
-         data-ru="Личная лента: города, где я жил и работал, и места, которые посетил.">
-         Personal timeline: cities where I lived and worked, and places visited.
-      </p>
+<div class="app">
+  <header>
+    <div class="title">Journey</div>
+    <div class="toolbar">
+      <button id="toggleLived"><span class="chip lived">●</span> <span data-i18n="lived">Жил</span></button>
+      <button id="toggleVisited"><span class="chip visited">●</span> <span data-i18n="visited">Посетил</span></button>
+      <button id="resetBtn" title="Сброс вида/состояния"><span data-i18n="reset">Сброс</span></button>
+      <select id="langSelect" aria-label="Language">
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+  </header>
+  <div id="map" role="region" aria-label="Journey map"></div>
+</div>
+<div class="attribution">
+  © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM contributors</a>
+</div>
 
-      <div class="cta">
-        <a class="btn" href="resume.pdf" target="_blank" rel="noopener" data-en="Resume (PDF)" data-ru="Резюме (PDF)">Resume (PDF)</a>
-        <a class="btn" href="mailto:zyerkin@gmail.com" data-en="Contact" data-ru="Контакты">Contact</a>
-        <button id="toggle-lived" class="btn" aria-pressed="true"
-                data-en="Lived &amp; Worked: ON" data-ru="Жил/Работал: ВКЛ">Lived &amp; Worked: ON</button>
-        <button id="toggle-visited" class="btn" aria-pressed="true"
-                data-en="Visited: ON" data-ru="Посещено: ВКЛ">Visited: ON</button>
-      </div>
-    </header>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+/* =========================
+   i18n
+========================= */
+const I18N = {
+  en: { lived:"Lived", visited:"Visited", reset:"Reset", popup_lived:"Lived here", popup_visited:"Visited" },
+  ru: { lived:"Жил",  visited:"Посетил", reset:"Сброс", popup_lived:"Здесь жил", popup_visited:"Посещал" }
+};
+const LS_KEYS = { lang:'journey:lang', showLived:'journey:showLived', showVisited:'journey:showVisited', mapState:'journey:mapState' };
 
-    <main>
-      <h2 data-en="Interactive Map" data-ru="Интерактивная карта">Interactive Map</h2>
-      <div id="map"></div>
-    </main>
-  </div>
+/* =========================
+   DATA via fetch
+========================= */
+async function loadData(){
+  const res = await fetch('data/places.json', { cache: 'no-cache' });
+  if(!res.ok) throw new Error('Не удалось загрузить data/places.json');
+  const json = await res.json();
+  // нормализуем поля (на случай пропусков)
+  return {
+    lived: (json.lived||[]).map(n => ({ name:n.name, coords:n.coords, years:n.years||"", notes:n.notes||"" })),
+    visited: (json.visited||[]).map(n => ({ name:n.name, coords:n.coords, years:n.years||"", notes:n.notes||"" })),
+  };
+}
+let livedPlaces = [];
+let visitedPlaces = [];
 
-  <!-- Leaflet JS (defer) -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+/* =========================
+   Map init
+========================= */
+const map = L.map('map', { worldCopyJump:true, zoomSnap:.5 });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'' }).addTo(map);
 
-  <!-- ВСТРОЕННЫЙ main.js (без внешнего файла) -->
-  <script>
-    // --- Данные ---
-    var lived = [
-      { name: 'Panama City, Panama (2005–2006)', lat: 8.9824, lng: -79.5199 },
-      { name: 'San Francisco, CA, USA (2006–2007)', lat: 37.7749, lng: -122.4194 },
-      { name: 'Bishkek, Kyrgyzstan (2007–2010)', lat: 42.8746, lng: 74.5698 },
-      { name: 'San Salvador, El Salvador (2010–2012)', lat: 13.6929, lng: -89.2182 },
-      { name: 'Silver Spring, MD, USA (2012–2016)', lat: 39.0, lng: -77.0 },
-      { name: 'Moscow, Russia (2016–2020)', lat: 55.7558, lng: 37.6173 },
-      { name: 'Reykjavik, Iceland (2020)', lat: 64.1466, lng: -21.9426 },
-      { name: 'Washington, DC, USA (2020–2023)', lat: 38.9072, lng: -77.0369 },
-      { name: 'Almaty, Kazakhstan (2023–present)', lat: 43.2220, lng: 76.8512 }
-    ];
-    var visited = [
-      { name: 'Tokyo, Japan', lat: 35.6762, lng: 139.6503 },
-      { name: 'Osaka, Japan', lat: 34.6937, lng: 135.5023 }
-    ];
+const livedLayer = L.layerGroup();
+const visitedLayer = L.layerGroup();
 
-    // --- i18n ---
-    var currentLang = 'en';
-    var i18n = {
-      en: { lived:'Lived & Worked', visited:'Visited', dashed:'Dashed line = life path',
-            tlOn:'Lived & Worked: ON', tlOff:'Lived & Worked: OFF',
-            tvOn:'Visited: ON', tvOff:'Visited: OFF' },
-      ru: { lived:'Жил/Работал', visited:'Посещено', dashed:'Пунктир — траектория жизни',
-            tlOn:'Жил/Работал: ВКЛ', tlOff:'Жил/Работал: ВЫКЛ',
-            tvOn:'Посещено: ВКЛ', tvOff:'Посещено: ВЫКЛ' }
-    };
+function markerIcon(kind){
+  const color = (kind==='lived') ? '#1fc77e' : '#ffd166';
+  return L.divIcon({
+    className:'custom-marker',
+    html:`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${color};border:2px solid #0006;box-shadow:0 2px 6px rgba(0,0,0,.35)"></span>`,
+    iconSize:[12,12], iconAnchor:[6,6]
+  });
+}
+function popupHtml(p, kind){
+  const t = I18N[currentLang()];
+  const label = (kind==='lived') ? t.popup_lived : t.popup_visited;
+  const years = p.years ? `<div style="opacity:.8">${p.years}</div>` : '';
+  const notes = p.notes ? `<div style="margin-top:.25rem">${p.notes}</div>` : '';
+  return `<div style="min-width:180px"><div style="font-weight:700">${p.name}</div><div style="font-size:12px;opacity:.85">${label}</div>${years}${notes}</div>`;
+}
+function addPoints(){
+  livedLayer.clearLayers(); visitedLayer.clearLayers();
+  livedPlaces.forEach(p => L.marker(p.coords,{icon:markerIcon('lived')}).bindPopup(()=>popupHtml(p,'lived')).addTo(livedLayer));
+  visitedPlaces.forEach(p => L.marker(p.coords,{icon:markerIcon('visited')}).bindPopup(()=>popupHtml(p,'visited')).addTo(visitedLayer));
+}
 
-    function setLang(lang){
-      currentLang = lang;
-      var nodes = document.querySelectorAll('[data-en]');
-      for (var i=0;i<nodes.length;i++){
-        var el = nodes[i];
-        var txt = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
-        el.innerHTML = txt;
-      }
-      updateToggleTexts();
-      rebuildLegend();
-      document.getElementById('btn-ru').setAttribute('aria-pressed', String(lang === 'ru'));
-      document.getElementById('btn-en').setAttribute('aria-pressed', String(lang === 'en'));
-    }
-    function updateToggleTexts(){
-      var bl = document.getElementById('toggle-lived');
-      var bv = document.getElementById('toggle-visited');
-      if (bl){
-        var onL = bl.getAttribute('aria-pressed') === 'true';
-        bl.textContent = onL ? i18n[currentLang].tlOn : i18n[currentLang].tlOff;
-      }
-      if (bv){
-        var onV = bv.getAttribute('aria-pressed') === 'true';
-        bv.textContent = onV ? i18n[currentLang].tvOn : i18n[currentLang].tvOff;
-      }
-    }
+/* =========================
+   Fit bounds
+========================= */
+function fitAll(){
+  const group = L.featureGroup([livedLayer, visitedLayer]);
+  const b = group.getBounds();
+  if (b.isValid()) map.fitBounds(b.pad(0.2)); else map.setView([20,0],2);
+}
 
-    // --- Карта ---
-    var map, livedLayer, visitedLayer, legendCtrl;
+/* =========================
+   UI state & i18n
+========================= */
+function currentLang(){
+  const hashLang = new URLSearchParams(location.hash.slice(1)).get('lang');
+  return hashLang || (localStorage.getItem(LS_KEYS.lang) || 'ru');
+}
+function setLang(lang){
+  localStorage.setItem(LS_KEYS.lang, lang);
+  const sp = new URLSearchParams(location.hash.slice(1)); sp.set('lang', lang); location.hash = sp.toString();
+  applyI18n();
+}
+function applyI18n(){
+  const lang = currentLang();
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n'); el.textContent = I18N[lang][key];
+  });
+}
+function setButtonActive(btn, on){ btn.classList.toggle('active', !!on); }
 
-    function popupHtml(p){ return '<strong>'+p.name+'</strong>'; }
+/* =========================
+   Controls
+========================= */
+const langSelect = document.getElementById('langSelect');
+const btnLived = document.getElementById('toggleLived');
+const btnVisited = document.getElementById('toggleVisited');
+const btnReset = document.getElementById('resetBtn');
 
-    function rebuildLegend(){
-      if (!map) return;
-      if (legendCtrl) legendCtrl.remove();
-      legendCtrl = L.control({ position: 'bottomright' });
-      legendCtrl.onAdd = function(){
-        var div = L.DomUtil.create('div', 'legend');
-        div.className = 'legend';
-        div.innerHTML =
-          '<div style="display:flex;align-items:center;gap:8px">' +
-            '<span style="display:inline-block;width:10px;height:10px;background:#3b82f6;border:2px solid #2563eb;border-radius:50%"></span> ' + i18n[currentLang].lived +
-          '</div>' +
-          '<div style="display:flex;align-items:center;gap:8px;margin-top:6px">' +
-            '<span style="display:inline-block;width:10px;height:10px;background:#9ca3af;border:2px solid #6b7280;border-radius:50%"></span> ' + i18n[currentLang].visited +
-          '</div>' +
-          '<div style="margin-top:6px;opacity:.8">' + i18n[currentLang].dashed + '</div>';
-        return div;
-      };
-      legendCtrl.addTo(map);
-    }
+function initControls(){
+  // язык
+  langSelect.value = currentLang();
+  applyI18n();
+  langSelect.addEventListener('change', e => setLang(e.target.value));
+  window.addEventListener('hashchange', applyI18n);
 
-    function bindToggles(){
-      var bl = document.getElementById('toggle-lived');
-      var bv = document.getElementById('toggle-visited');
-      if (bl){
-        bl.addEventListener('click', function(){
-          var on = bl.getAttribute('aria-pressed') !== 'true';
-          bl.setAttribute('aria-pressed', String(on));
-          if (on) livedLayer.addTo(map); else map.removeLayer(livedLayer);
-          updateToggleTexts();
-        });
-      }
-      if (bv){
-        bv.addEventListener('click', function(){
-          var on = bv.getAttribute('aria-pressed') !== 'true';
-          bv.setAttribute('aria-pressed', String(on));
-          if (on) visitedLayer.addTo(map); else map.removeLayer(visitedLayer);
-          updateToggleTexts();
-        });
-      }
-    }
+  // слои
+  const savedShowLived = localStorage.getItem(LS_KEYS.showLived);
+  const savedShowVisited = localStorage.getItem(LS_KEYS.showVisited);
+  const showLived = savedShowLived===null ? true : savedShowLived==='1';
+  const showVisited = savedShowVisited===null ? true : savedShowVisited==='1';
 
-    document.addEventListener('DOMContentLoaded', function(){
-      // 1) Язык
-      document.getElementById('btn-ru').addEventListener('click', function(){ setLang('ru'); });
-      document.getElementById('btn-en').addEventListener('click', function(){ setLang('en'); });
-      setLang('en');
+  if (showLived) map.addLayer(livedLayer);
+  if (showVisited) map.addLayer(visitedLayer);
+  setButtonActive(btnLived, showLived);
+  setButtonActive(btnVisited, showVisited);
 
-      // 2) Карта
-      console.log('Leaflet loaded?', typeof L); // должно быть "object"
-      map = L.map('map', { scrollWheelZoom: true, worldCopyJump: true, zoomControl: false });
-      L.control.zoom({ position: 'bottomright' }).addTo(map);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-      map.attributionControl.setPrefix('');
+  btnLived.addEventListener('click', ()=>{
+    if (map.hasLayer(livedLayer)) { map.removeLayer(livedLayer); localStorage.setItem(LS_KEYS.showLived,'0'); setButtonActive(btnLived,false); }
+    else { map.addLayer(livedLayer); localStorage.setItem(LS_KEYS.showLived,'1'); setButtonActive(btnLived,true); }
+  });
+  btnVisited.addEventListener('click', ()=>{
+    if (map.hasLayer(visitedLayer)) { map.removeLayer(visitedLayer); localStorage.setItem(LS_KEYS.showVisited,'0'); setButtonActive(btnVisited,false); }
+    else { map.addLayer(visitedLayer); localStorage.setItem(LS_KEYS.showVisited,'1'); setButtonActive(btnVisited,true); }
+  });
+  btnReset.addEventListener('click', ()=>{
+    if (!map.hasLayer(livedLayer)) map.addLayer(livedLayer);
+    if (!map.hasLayer(visitedLayer)) map.addLayer(visitedLayer);
+    localStorage.setItem(LS_KEYS.showLived,'1');
+    localStorage.setItem(LS_KEYS.showVisited,'1');
+    setButtonActive(btnLived,true); setButtonActive(btnVisited,true);
+    localStorage.removeItem(LS_KEYS.mapState);
+    fitAll();
+  });
+}
 
-      livedLayer = L.layerGroup().addTo(map);
-      visitedLayer = L.layerGroup().addTo(map);
+/* =========================
+   Persist map view
+========================= */
+function saveMapState(){
+  const c = map.getCenter(); const z = map.getZoom();
+  localStorage.setItem(LS_KEYS.mapState, JSON.stringify({ lat:c.lat, lng:c.lng, zoom:z }));
+}
+function restoreMapState(){
+  const raw = localStorage.getItem(LS_KEYS.mapState); if(!raw) return false;
+  try{
+    const s = JSON.parse(raw);
+    if (typeof s.lat==='number' && typeof s.lng==='number' && typeof s.zoom==='number'){ map.setView([s.lat,s.lng], s.zoom); return true; }
+  }catch{}
+  return false;
+}
+map.on('moveend', saveMapState);
+map.on('zoomend', saveMapState);
 
-      for (var i=0;i<lived.length;i++){
-        var p = lived[i];
-        L.circleMarker([p.lat, p.lng], { radius:7, weight:2, opacity:1, fillOpacity:0.9, color:'#2563eb', fillColor:'#3b82f6' })
-          .bindPopup(popupHtml(p)).addTo(livedLayer);
-      }
-      for (var j=0;j<visited.length;j++){
-        var q = visited[j];
-        L.circleMarker([q.lat, q.lng], { radius:7, weight:2, opacity:1, fillOpacity:0.9, color:'#6b7280', fillColor:'#9ca3af' })
-          .bindPopup(popupHtml(q)).addTo(visitedLayer);
-      }
-
-      // линия пути
-      var path = [];
-      for (var k=0;k<lived.length;k++) path.push([lived[k].lat, lived[k].lng]);
-      L.polyline(path, { color:'#60a5fa', weight:3, dashArray:'6 6', opacity:0.8 }).addTo(map);
-
-      // границы
-      var bounds = L.latLngBounds([]);
-      for (var a=0;a<lived.length;a++) bounds.extend([lived[a].lat, lived[a].lng]);
-      for (var b=0;b<visited.length;b++) bounds.extend([visited[b].lat, visited[b].lng]);
-      if (bounds.isValid()) map.fitBounds(bounds.pad(0.2)); else map.setView([20, 0], 2);
-
-      rebuildLegend();
-      bindToggles();
-    });
-  </script>
+/* =========================
+   Boot: загрузка данных
+========================= */
+(async function boot(){
+  try{
+    const data = await loadData();
+    livedPlaces = data.lived;
+    visitedPlaces = data.visited;
+    addPoints();
+    initControls();
+    if (!restoreMapState()) fitAll();
+  }catch(err){
+    console.error(err);
+    alert('Ошибка загрузки данных: ' + err.message);
+    // даже если данных нет — инициализируем базовые контролы
+    initControls();
+    map.setView([20,0],2);
+  }
+})();
+</script>
 </body>
 </html>
 
