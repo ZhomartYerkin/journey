@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Journey — Zhomart Yerkin</title>
   <meta name="description" content="Personal travel timeline, skills, and selected projects." />
+  <link rel="icon" href="data:,"><!-- prevent favicon 404 -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -42,11 +43,13 @@
     .lang-switch button { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:6px 10px; cursor:pointer; color:var(--fg); font-size:0.9rem; }
     .lang-switch button[aria-pressed="true"] { outline:2px solid var(--accent); }
 
-    /* Map controls */
-    .controls{display:flex;gap:8px;margin:10px 0 0;align-items:center}
-    .controls .btn{padding:6px 10px}
+    /* Map controls moved under hero */
+    .cta-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px; }
+    .cta-row .muted { color: var(--muted); font-size: 0.95rem; }
+    .cta-row .btn { padding:6px 10px; }
 
-    #map { height: 70vh; border:1px solid var(--border); border-radius:14px; }
+    /* Map box */
+    #map { height: 70vh; min-height: 420px; border:1px solid var(--border); border-radius:14px; }
   </style>
 </head>
 <body>
@@ -60,21 +63,27 @@
         <div class="pill"><span class="dot"></span> <span data-en="Currently in Almaty · open to Web/Digital Media work" data-ru="Сейчас в Алматы · открыт к Web/Digital Media проектам">Currently in Almaty · open to Web/Digital Media work</span></div>
         <h1 data-en="Journeys across work & life" data-ru="Путешествия через работу и жизнь">Journeys across work & life</h1>
         <p data-en="Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content." data-ru="Личный сайт-лента: города, где я жил и работал, и места, которые посетил. Фокус на вебе, картах и цифровом контенте.">Personal timeline: cities where I lived and worked, and places visited. Focus on web, maps, and digital content.</p>
+
         <div class="cta">
           <a class="btn primary" href="#projects" data-en="Selected Projects" data-ru="Проекты">Selected Projects</a>
           <a class="btn" href="resume.pdf" target="_blank" rel="noopener" data-en="Resume (PDF)" data-ru="Резюме (PDF)">Resume (PDF)</a>
           <a class="btn" href="mailto:yerkinfam@gmail.com" data-en="Contact" data-ru="Контакты">Contact</a>
           <a class="btn" href="https://github.com/ZhomartYerkin" target="_blank" rel="noopener">GitHub</a>
+
+          <!-- Locations toggles under top bar -->
+          <div class="cta-row">
+            <span class="muted" data-en="Locations:" data-ru="Локации:">Locations:</span>
+            <button id="toggle-lived" class="btn" aria-pressed="true"
+                    data-en="Lived &amp; Worked: ON" data-ru="Жил/Работал: ВКЛ">Lived &amp; Worked: ON</button>
+            <button id="toggle-visited" class="btn" aria-pressed="true"
+                    data-en="Visited: ON" data-ru="Посещено: ВКЛ">Visited: ON</button>
+          </div>
         </div>
       </div>
     </header>
 
     <section id="map-section">
       <h2 data-en="Interactive Map" data-ru="Интерактивная карта">Interactive Map</h2>
-      <div class="controls">
-        <button id="toggle-lived" class="btn" aria-pressed="true" data-en="Lived &amp; Worked: ON" data-ru="Жил/Работал: ВКЛ">Lived &amp; Worked: ON</button>
-        <button id="toggle-visited" class="btn" aria-pressed="true" data-en="Visited: ON" data-ru="Посещено: ВКЛ">Visited: ON</button>
-      </div>
       <div id="map"></div>
       <p class="years" style="margin-top:8px" data-en="Blue = Lived & Worked • Gray = Visited" data-ru="Синий = Жил/Работал • Серый = Посещено">Blue = Lived & Worked • Gray = Visited</p>
     </section>
@@ -139,9 +148,9 @@
 
   </div>
 
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Leaflet CSS & JS (Safari/GitHub Pages friendly) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script src="main.js" defer></script>
 </body>
 </html>
