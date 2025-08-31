@@ -1,0 +1,80 @@
+/* Стили только для секции #journey (карта) */
+#journey {
+  --bg:#0b0d12;
+  --fg:#e7ecf3;
+  --muted:#9aa4b2;
+  --acc:#4f8cff;
+  --green:#1fc77e;
+  --yellow:#ffd166;
+  --card:#121622;
+  --border:#1d2230;
+  margin:24px 0;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:linear-gradient(180deg,#0e1220,#0b0d12);
+}
+
+/* Панель сверху */
+#journey .journey__bar {
+  display:flex;
+  gap:.75rem;
+  align-items:center;
+  padding:.75rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+#journey .journey__title {
+  color:var(--fg);
+  font-weight:700;
+  margin-right:auto;
+}
+#journey .journey__tools {
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* Кнопки и селект */
+#journey button, #journey select {
+  appearance:none;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--fg);
+  padding:.45rem .7rem;
+  border-radius:.6rem;
+  cursor:pointer;
+  transition:transform .04s ease,border-color .2s ease,background .2s ease;
+}
+#journey button:hover, #journey select:hover { border-color:#2a3347; }
+#journey button:active { transform: translateY(1px); }
+#journey button.active { outline:2px solid var(--acc); background:#10172a; }
+
+#journey .journey__chip { font-weight:700 }
+#journey .journey__chip--lived { color:var(--green) }
+#journey .journey__chip--visited { color:var(--yellow) }
+
+/* Карта */
+#journey .journey__map {
+  width:100%;
+  min-height:60vh;
+  border-radius:0 0 12px 12px;
+  overflow:hidden;
+}
+
+/* Подпись */
+#journey .journey__attr {
+  color:var(--muted);
+  font-size:12px;
+  padding:8px 12px;
+  text-align:right;
+}
+#journey a { color:var(--acc); text-decoration:none; }
+
+/* Попапы Leaflet внутри карты */
+#journey .leaflet-popup-content-wrapper {
+  background:var(--card);
+  color:var(--fg);
+  border:1px solid var(--border);
+}
+#journey .leaflet-popup-tip { background:var(--card); }
+
