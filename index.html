@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="site.title">Journey — Map</title>
+  <title>Journey — Map</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet"
@@ -11,75 +11,53 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin>
 
-  <!-- Map styles -->
+  <!-- Стили карты -->
   <link rel="stylesheet" href="data/journey.css">
 
-  <!-- Your global styles (optional) -->
+  <!-- твои глобальные стили сайта -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- SEO: alternate language hints (optional) -->
-  <link rel="alternate" hreflang="en" href="./#lang=en">
-  <link rel="alternate" hreflang="ru" href="./#lang=ru">
 </head>
 <body>
-  <!-- ===== HEADER ===== -->
+  <!-- ========== ТВОЯ ШАПКА / РЕЗЮМЕ / КОНТАКТЫ ========== -->
   <header>
-    <h1 data-i18n="hdr.title">My Portfolio</h1>
+    <h1>Моё портфолио</h1>
     <nav>
-      <a href="#about" data-i18n="nav.about">About</a> |
-      <a href="#resume" data-i18n="nav.resume">Resume</a> |
-      <a href="#journey" data-i18n="nav.journey">Journey</a> |
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
-      &nbsp;&nbsp;
-      <!-- Language switch shared with the map -->
-      <label style="margin-left:12px">
-        <span data-i18n="nav.language">Language</span>:
-        <select id="site-lang">
-          <option value="en">EN</option>
-          <option value="ru">RU</option>
-        </select>
-      </label>
+      <a href="#about">Обо мне</a> |
+      <a href="#resume">Резюме</a> |
+      <a href="#contact">Контакты</a>
     </nav>
   </header>
 
   <main>
-    <!-- ===== ABOUT ===== -->
     <section id="about">
-      <h2 data-i18n="about.h2">About Me</h2>
-      <p data-i18n="about.p">
-        Hello! My name is Zhomart Yerkin. I am passionate about software development, travel, and lifelong learning.
-        This site combines my professional background and my personal journey across the world.
-      </p>
+      <h2>Обо мне</h2>
+      <p>Здесь можно вставить описание: кто ты, чем занимаешься, и т.п.</p>
     </section>
 
-    <!-- ===== RESUME ===== -->
     <section id="resume">
-      <h2 data-i18n="resume.h2">Resume</h2>
-      <p>
-        <span data-i18n="resume.text">You can download my resume here:</span>
-        <a href="resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
-      </p>
+      <h2>Резюме</h2>
+      <p>Здесь вставь своё резюме или ссылку на PDF.</p>
     </section>
 
-    <!-- ===== MAP JOURNEY ===== -->
+    <!-- ========== КАРТА Journey ========== -->
     <section id="journey" class="journey">
       <div class="journey__bar">
-        <div class="journey__title" data-i18n="map.title">Journey</div>
+        <div class="journey__title">Journey</div>
         <div class="journey__tools">
           <button id="journey-toggleLived">
             <span class="journey__chip journey__chip--lived">●</span>
-            <span data-i18n="map.lived">Lived</span>
+            <span data-i18n="lived">Жил</span>
           </button>
           <button id="journey-toggleVisited">
             <span class="journey__chip journey__chip--visited">●</span>
-            <span data-i18n="map.visited">Visited</span>
+            <span data-i18n="visited">Посетил</span>
           </button>
           <button id="journey-reset">
-            <span data-i18n="map.reset">Reset</span>
+            <span data-i18n="reset">Сброс</span>
           </button>
           <select id="journey-lang">
-            <option value="en">EN</option>
             <option value="ru">RU</option>
+            <option value="en">EN</option>
           </select>
         </div>
       </div>
@@ -90,28 +68,18 @@
       </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
     <section id="contact">
-      <h2 data-i18n="contact.h2">Contact</h2>
-      <p><span data-i18n="contact.email">Email</span>:
-        <a id="contact-email" href="mailto:zyerkin@gmail.com">zyerkin@gmail.com</a>
-      </p>
-      <p>
-        GitHub:
-        <a id="contact-github"
-           href="https://github.com/ZhomartYerkin"
-           target="_blank"
-           rel="noopener noreferrer">github.com/ZhomartYerkin</a>
-      </p>
+      <h2>Контакты</h2>
+      <p>Email: you@example.com</p>
+      <p>GitHub: <a href="https://github.com/YourName">YourName</a></p>
     </section>
   </main>
 
   <footer>
-    <p data-i18n="footer.copy">© 2025 My Website</p>
+    <p>© 2025 Мой сайт</p>
   </footer>
 
-  <!-- Site i18n then Leaflet + map logic -->
-  <script src="data/site.js"></script>
+  <!-- Leaflet JS и логика карты -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin></script>
