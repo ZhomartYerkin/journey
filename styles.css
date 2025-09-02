@@ -1,101 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="site.title">Journey — Map</title>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin>
+#journey-map {
+  height: 500px;
+  margin: 20px;
+  border-radius: 12px;
+}
 
-  <!-- Map styles -->
-  <link rel="stylesheet" href="data/journey.css">
+.controls {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:12px 0;
+  justify-content:center;
+}
 
-  <!-- Your global styles -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- ===== HEADER ===== -->
-  <header>
-    <h1 data-i18n="hdr.title">My Portfolio</h1>
-    <nav>
-      <a href="#about" data-i18n="nav.about">About</a> |
-      <a href="#resume" data-i18n="nav.resume">Resume</a> |
-      <a href="#journey" data-i18n="nav.journey">Journey</a> |
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
-      &nbsp;&nbsp;
-      <label style="margin-left:12px">
-        <span data-i18n="nav.language">Language</span>:
-        <select id="site-lang">
-          <option value="en">EN</option>
-          <option value="ru">RU</option>
-        </select>
-      </label>
-    </nav>
-  </header>
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid #26303a;
+  background:rgba(15,15,15,0.6);
+  color:#fff;
+  cursor:pointer;
+}
+.btn.active { outline:2px solid #3b82f6; outline-offset:2px }
 
-  <main>
-    <!-- ===== ABOUT ===== -->
-    <section id="about">
-      <h2 data-i18n="about.h2">About Me</h2>
-      <p data-i18n="about.p">
-        Hello! My name is Zhomart Yerkin. I am passionate about software development, travel, and lifelong learning.
-        This site combines my professional background and my personal journey across the world.
-      </p>
-    </section>
+.btn::before {
+  content:"";
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background:#8b98a5;
+}
+.btn--lived::before   { background:#22c55e; } 
+.btn--visited::before { background:#3b82f6; } 
 
-    <!-- ===== RESUME ===== -->
-    <section id="resume">
-      <h2 data-i18n="resume.h2">Resume</h2>
-      <p>
-        <span data-i18n="resume.text">You can download my resume here:</span>
-        <a href="resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
-      </p>
-    </section>
+/* Hero Journey section с фоном */
+.journey-section {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: url("./images/iceland.webp") no-repeat center/cover;
+  margin: 0;
+  border-radius: 0;
+  padding: 40px 20px;
+}
 
-    <!-- ===== JOURNEY (с картинкой Исландии на фоне) ===== -->
-    <section id="journey" class="journey-section">
-      <h2>Journey</h2>
-      <div class="controls">
-        <button class="btn active" data-filter="all">All</button>
-        <button class="btn btn--lived" data-filter="lived">Lived</button>
-        <button class="btn btn--visited" data-filter="visited">Visited</button>
-      </div>
-      <div id="journey-map" class="journey__map" role="region" aria-label="Journey map"></div>
-      <div class="journey__attr">
-        © <a href="https://www.openstreetmap.org/copyright"
-             target="_blank" rel="noopener">OSM contributors</a>
-      </div>
-    </section>
+/* overlay затемняет фото */
+.journey-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  pointer-events: none; /* важно, кнопки кликабельны */
+}
 
-    <!-- ===== CONTACT ===== -->
-    <section id="contact">
-      <h2 data-i18n="contact.h2">Contact</h2>
-      <p><span data-i18n="contact.email">Email</span>:
-        <a id="contact-email" href="mailto:zyerkin@gmail.com">zyerkin@gmail.com</a>
-      </p>
-      <p>
-        GitHub:
-        <a id="contact-github"
-           href="https://github.com/ZhomartYerkin"
-           target="_blank" rel="noopener noreferrer">github.com/ZhomartYerkin</a>
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    <p data-i18n="footer.copy">© 2025 My Website</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="data/site.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-          crossorigin></script>
-  <script src="data/journey.js"></script>
-</body>
-</html>
-
+/* контент поверх overlay */
+.journey-section > * {
+  position: relative;
+  z-index: 1;
+}
