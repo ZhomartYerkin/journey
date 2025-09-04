@@ -19,3 +19,151 @@ body {
 .filters label { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); }
 .filters .sep { color: var(--muted); margin: 0 6px; }
 
+/* ===== дополняем дефолтные CSS-переменные, раз вы их используете ===== */
+:root {
+  --panel: #fff;
+  --outline: #e5e7eb;
+  --fg: #111827;
+  --muted: #6b7280;
+}
+
+/* применим ваши стили .filters и к .controls (чтобы не трогать HTML) */
+.filters, .controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 8px 0 12px;
+}
+
+/* кнопки-переключатели */
+.btn {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fff;
+}
+.btn.active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* картинка Исландии и подпись */
+figure img { width: 100%; border-radius: 12px; display: block; }
+figcaption { color: var(--muted); font-size: 0.9rem; }
+
+/* чтобы случайные списки мест не вываливались под картой */
+#places, .places { display: none !important; }
+
+#about {
+  max-width: 960px;
+  margin: 0 auto 24px;
+  text-align: left;
+  padding: 16px;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  background: #fff;
+}
+#about h2 { margin: 0 0 8px; }
+#about p { margin: 0 0 12px; color: #333; }
+#about .about-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+#about .ok { color: #059669; font-size: 0.9rem; }
+
+/* Кнопки уже оформлены через .btn — используем их же */
+/* Full-bleed hero banner */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 42vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ✅ фолбэк: JPG + WebP, с версионированием против кеша */
+.hero--iceland {
+  /* базовый фолбэк (если image-set не поддерживается) */
+  background-image: url('images/iceland.jpg?v=2');
+
+  /* если есть WebP — возьмётся он; иначе останется JPG */
+  background-image: image-set(
+    url('images/iceland.webp?v=2') type('image/webp'),
+    url('images/iceland.jpg?v=2')  type('image/jpeg')
+  );
+}
+
+/* лёгкое затемнение и чтобы оверлей не перехватывал клики */
+.hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .hero { min-height: 55vh; }
+}
+
+/* ==== Dark theme palette ==== */
+:root {
+  color-scheme: dark;
+  --bg:#0b0d12;
+  --fg:#e7ecf3;
+  --muted:#9aa4b2;
+  --panel:#121622;
+  --outline:#1d2230;
+  --acc:#4f8cff;
+}
+
+/* База страницы */
+body { background: var(--bg); color: var(--fg); }
+
+/* Панель фильтров и кнопки */
+.filters { background: var(--panel); border-color: var(--outline); }
+.btn {
+  background: var(--panel);
+  color: var(--fg);
+  border: 1px solid var(--outline);
+}
+.btn:hover { border-color:#2a3347; }
+.btn.active { background:#10172a; border-color:#2a3347; color:var(--fg); }
+
+/* Увеличенный размер текста для всех кнопок */
+.btn,
+.flag {
+  font-size: 1.1rem;   /* можешь увеличить до 1.2rem, если нужно ещё крупнее */
+  font-weight: 600;    /* делает текст чуть жирнее */
+}
+
+
+/* Блок About */
+#about {
+  background: var(--panel);
+  border-color: var(--outline);
+  color: var(--fg);
+}
+#about p, #about .about-list { color: var(--fg); }
+#about .ok { color:#1fc77e; }
+
+/* Подписи, разделители */
+figcaption, .filters .sep { color: var(--muted); }
+
+/* Hero поверх чуть темнее */
+.hero::after { background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,0)); }
+
+/* Leaflet: попапы и зум-кнопки под тёмную тему */
+.leaflet-popup-content-wrapper { background: var(--panel); color: var(--fg); border:1px solid var(--outline); }
+.leaflet-popup-tip { background: var(--panel); }
+.leaflet-control-zoom a {
+  background: var(--panel);
+  color: var(--fg);
+  border: 1px solid var(--outline);
+}
+.leaflet-control-zoom a:hover { background:#171b29; }
+
