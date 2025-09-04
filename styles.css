@@ -5,70 +5,68 @@ body {
   text-align: center;
 }
 
-#journey-map {
+#map {
   height: 500px;
   margin: 20px;
   border-radius: 12px;
 }
 
+.filters {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  background: var(--panel); border: 1px solid var(--outline);
+  padding: 10px 12px; border-radius: 10px; margin: 8px 0 12px;
+}
+.filters label { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); }
+.filters .sep { color: var(--muted); margin: 0 6px; }
+
 .controls {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:12px 0;
-  justify-content:center;
+  display:flex; gap:8px; flex-wrap:wrap; margin:12px 0;
 }
 
 .btn {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:10px;
-  border:1px solid #26303a;
-  background:rgba(15,15,15,0.6);
-  color:#fff;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:10px;
+  border:1px solid #26303a; background:transparent; color:#e6ebf0;
   cursor:pointer;
 }
 .btn.active { outline:2px solid #3b82f6; outline-offset:2px }
 
+/* «точки» */
 .btn::before {
-  content:"";
-  display:inline-block;
-  width:10px;
-  height:10px;
-  border-radius:999px;
-  background:#8b98a5;
+  content:""; display:inline-block; width:10px; height:10px;
+  border-radius:999px; background:#8b98a5;
 }
-.btn--lived::before   { background:#22c55e; } 
-.btn--visited::before { background:#3b82f6; } 
+.btn--lived::before   { background:#22c55e; } /* зелёная */
+.btn--visited::before { background:#3b82f6; } /* синяя */
 
-/* Hero Journey section с фоном */
+/* фон для секции Journey */
 .journey-section {
   position: relative;
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 24px 16px;
   color: #fff;
-  background: url("./images/iceland.webp") no-repeat center/cover;
-  margin: 0;
-  border-radius: 0;
-  padding: 40px 20px;
+  background: url("images/iceland.webp") no-repeat center/cover;
+  border-radius: 12px;
+  margin: 16px 0;
 }
 
-/* overlay затемняет фото */
+/* overlay для контраста */
 .journey-section::before {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: rgba(0,0,0,0.45);
-  pointer-events: none; /* важно, кнопки кликабельны */
 }
 
 /* контент поверх overlay */
 .journey-section > * {
   position: relative;
   z-index: 1;
+}
+
+/* кнопки на фоне фото */
+.journey-section .btn {
+  background: rgba(15,15,15,0.6);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
 }

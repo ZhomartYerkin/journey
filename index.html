@@ -14,9 +14,14 @@
   <!-- Map styles -->
   <link rel="stylesheet" href="data/journey.css">
 
-  <!-- Your global styles -->
+  <!-- Your global styles (optional) -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- SEO: alternate language hints (optional) -->
+  <link rel="alternate" hreflang="en" href="./#lang=en">
+  <link rel="alternate" hreflang="ru" href="./#lang=ru">
 </head>
+
 <body>
   <!-- ===== HEADER ===== -->
   <header>
@@ -27,9 +32,24 @@
       <a href="#journey" data-i18n="nav.journey">Journey</a> |
       <a href="#contact" data-i18n="nav.contact">Contact</a>
       &nbsp;&nbsp;
-      <button id="btn-en">EN</button>
-      <button id="btn-ru">RU</button>
+      <!-- Language switch shared with the map -->
+      <label style="margin-left:12px">
+        <span data-i18n="nav.language">Language</span>:
+        <select id="site-lang">
+          <option value="en">EN</option>
+          <option value="ru">RU</option>
+        </select>
+      </label>
     </nav>
+    <section id="journey" class="container journey-section">
+      <h2>Journey</h2>
+      <div class="controls">
+        <button class="btn active" data-filter="all">All</button>
+        <button class="btn btn--lived" data-filter="lived">Lived</button>
+        <button class="btn btn--visited" data-filter="visited">Visited</button>
+      </div>
+      <div id="points" class="points"></div>
+    </section>
   </header>
 
   <main>
@@ -47,17 +67,31 @@
       <h2 data-i18n="resume.h2">Resume</h2>
       <p>
         <span data-i18n="resume.text">You can download my resume here:</span>
-        <a href="ZYerkinCV.pdf" target="_blank" rel="noopener">ZYerkinCV.pdf</a>
+        <a href="resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
       </p>
     </section>
 
-    <!-- ===== JOURNEY (с картинкой Исландии на фоне) ===== -->
-    <section id="journey" class="journey-section">
-      <h2>Journey</h2>
-      <div class="controls">
-        <button class="btn active" data-filter="all">All</button>
-        <button class="btn btn--lived" data-filter="lived">Lived</button>
-        <button class="btn btn--visited" data-filter="visited">Visited</button>
+    <!-- ===== MAP JOURNEY ===== -->
+    <section id="journey" class="journey">
+      <div class="journey__bar">
+        <div class="journey__title" data-i18n="map.title">Journey</div>
+        <div class="journey__tools">
+          <button id="journey-toggleLived">
+            <span class="journey__chip journey__chip--lived">●</span>
+            <span data-i18n="map.lived">Lived</span>
+          </button>
+          <button id="journey-toggleVisited">
+            <span class="journey__chip journey__chip--visited">●</span>
+            <span data-i18n="map.visited">Visited</span>
+          </button>
+          <button id="journey-reset">
+            <span data-i18n="map.reset">Reset</span>
+          </button>
+          <select id="journey-lang">
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+          </select>
+        </div>
       </div>
       <div id="journey-map" class="journey__map" role="region" aria-label="Journey map"></div>
       <div class="journey__attr">
@@ -76,7 +110,8 @@
         GitHub:
         <a id="contact-github"
            href="https://github.com/ZhomartYerkin"
-           target="_blank" rel="noopener noreferrer">github.com/ZhomartYerkin</a>
+           target="_blank"
+           rel="noopener noreferrer">github.com/ZhomartYerkin</a>
       </p>
     </section>
   </main>
@@ -85,10 +120,12 @@
     <p data-i18n="footer.copy">© 2025 My Website</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Site i18n then Leaflet + map logic -->
+  <script src="data/site.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin></script>
   <script src="data/journey.js"></script>
 </body>
 </html>
+
